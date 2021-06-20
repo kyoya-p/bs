@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'login.dart';
+
 void main() {
-  runApp(MyApp());
+//  runApp(MyApp());
+  runApp(FirebaseSignInWidget(appBuilder: (context, snapshot) => MyApp()));
 }
 
 class MyApp extends StatelessWidget {
