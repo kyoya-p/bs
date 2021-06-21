@@ -1,7 +1,6 @@
 import 'package:bsftr/deck_designer.dart';
 import 'package:flutter/material.dart';
 
-import 'field.dart';
 import 'login.dart';
 
 void main() {

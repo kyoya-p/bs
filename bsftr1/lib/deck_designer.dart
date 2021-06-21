@@ -1,9 +1,7 @@
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 
 import 'field.dart';
-import 'login.dart';
 
 class DeckDesigner extends StatelessWidget {
   // This widget is the root of your application.
