@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 import 'field.dart';
@@ -33,21 +35,27 @@ class DeckDesigner extends StatelessWidget {
 }
 
 createCard(BuildContext context) {
-  showDialog(
+  TextEditingController imgUrl = TextEditingController();
+  addCard() => db.collection("bs").add({"url": imgUrl.text});
+  return showDialog(
     context: context,
     builder: (context) => AlertDialog(
       title: Text("Create Card"),
       content: SingleChildScrollView(
-        child: ListBody(
+        child: Column(
           children: <Widget>[
-            Column(
-                // コンテンツ
-                ),
+            TextField(
+              decoration: InputDecoration(hintText: "Image URL"),
+              controller: imgUrl,
+            ),
           ],
         ),
       ),
       actions: <Widget>[
-        // ボタン
+        TextButton(
+          onPressed: () => addCard(),
+          child: Text("Add"),
+        ),
       ],
     ),
   );
