@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_dropzone/flutter_dropzone.dart';
 
 import 'field.dart';
 
@@ -17,7 +17,8 @@ class DeckDesigner extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(child: makeField()),
+              Expanded(child:FileUploadWidget()),
+              Expanded(child:makeField()),
           ],
         ),
       ),
@@ -57,4 +58,35 @@ createCard(BuildContext context) {
       ],
     ),
   );
+}
+
+class FileUploadWidget extends StatelessWidget {
+  late DropzoneViewController _controller;
+  String? _filename;
+
+  void _handleFileDrop(dynamic ev) async {
+    // ファイル情報を読み込む。
+    //_filename = await _controller.getFilename(ev);
+    //_fileSize = await _controller.getFileSize(ev);
+    //_fileMIME = await _controller.getFileMIME(ev);
+    //_fileData = await _controller.getFileData(ev);
+
+    // 一時的なリンクを生成して表示する。
+    final url = await _controller.createFileUrl(ev);
+    print(url);
+    _controller.releaseFileUrl(url);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DropzoneView(
+      operation: DragOperation.move,
+      cursor: CursorType.auto,
+      //onCreated: (ctrl) => _controller = ctrl,
+      onDrop: (ev) => _handleFileDrop(ev),
+      //onError: (ev) => print('Error: $ev'),
+      //onHover: () => setState(() {_hoverFlag = true;}),
+      //onLeave: () => setState(() {_hoverFlag = false;}),
+    );
+  }
 }

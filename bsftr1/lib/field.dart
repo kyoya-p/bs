@@ -31,6 +31,8 @@ Widget makeItem(Map<String, dynamic> e) {
   double left = e["left"] as double;
   String url = e["url_back"] as String;
 
+  Widget img=Image.network("http://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:Cumulus_cloud_above_Lechtaler_Alps_at_tannheim,_Austria.jpg");
+
   return Positioned(
     top: top,
     left: left,
@@ -39,11 +41,13 @@ Widget makeItem(Map<String, dynamic> e) {
         height: 20,
         width: 20,
         color: Colors.black,
+        child: img,
       ),
       feedback: Container(
         height: 20,
         width: 20,
         color: Colors.black12,
+        child: img,
       ),
     ),
   );
