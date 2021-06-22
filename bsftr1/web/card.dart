@@ -1,10 +1,10 @@
 class Item {
-  int x;
-  int y;
+  int left;
+  int top;
 
-  Item({required int this.x, required int this.y});
+  Item({required int this.left, required int this.top});
 
-  static from(dynamic o) => Item(x: o["x"] as int, y: o["y"] as int);
+  static from(dynamic o) => Item(left: o["left"] as int, top: o["left"] as int);
 }
 
 class Card extends Item {
@@ -13,13 +13,11 @@ class Card extends Item {
   String imgUrlFace2 = "";
 
   Card(Item item, {required String this.imgUrlBack})
-      : super(x: item.x, y: item.y);
+      : super(left: item.left, top: item.top);
 
   static from(dynamic o) =>
       Card(Item.from(o), imgUrlBack: o["imgUrlBack"] as String);
 
-  toObject() => {
-        "item": {"x": x, "y": y},
-        "card": {"imgUrlBack": imgUrlBack}
-      };
+  toObject() => {"left": left, "top": top, "imgUrlBack": imgUrlBack};
+
 }
