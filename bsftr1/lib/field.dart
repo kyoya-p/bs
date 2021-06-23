@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 final db = FirebaseFirestore.instance;
 
@@ -31,7 +32,12 @@ Widget makeItem(Map<String, dynamic> e) {
   double left = e["left"] as double;
   String url = e["url_back"] as String;
 
-  Widget img=Image.network("http://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:Cumulus_cloud_above_Lechtaler_Alps_at_tannheim,_Austria.jpg");
+  Future<String> downloadURL =
+      firebase_storage.FirebaseStorage.instance.ref(url).getDownloadURL();
+  Widget img = FutureBuilder<String>(
+    future: downloadURL,
+    builder: (context, snapshot) => Image.network(snapshot.data!),
+  );
 
   return Positioned(
     top: top,

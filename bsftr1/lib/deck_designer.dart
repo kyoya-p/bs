@@ -1,5 +1,12 @@
+import 'dart:convert' show utf8;
+import 'dart:typed_data' show Uint8List;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
+
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+
 
 import 'field.dart';
 
@@ -64,6 +71,28 @@ class FileUploadWidget extends StatelessWidget {
   late DropzoneViewController _controller;
   String? _filename;
 
+
+  Future<void> uploadData() async {
+    String text = 'Hello World!';
+    List<int> encoded = utf8.encode(text);
+    Uint8List data = Uint8List.fromList(encoded);
+
+    firebase_storage.Reference ref =
+    firebase_storage.FirebaseStorage.instance.ref('uploads/hello-world.text');
+
+    try {
+      // Upload raw data.
+      await ref.putData(data);
+      // Get raw data.
+      Uint8List downloadedData = (await ref.getData())!;
+      // prints -> Hello World!
+      print(utf8.decode(downloadedData));
+    } on firebase_core.FirebaseException catch (e) {
+      // e.g, e.code == 'canceled'
+    }
+  }
+
+
   void _handleFileDrop(dynamic ev) async {
     // ファイル情報を読み込む。
     //_filename = await _controller.getFilename(ev);
@@ -74,6 +103,10 @@ class FileUploadWidget extends StatelessWidget {
     // 一時的なリンクを生成して表示する。
     final url = await _controller.createFileUrl(ev);
     print(url);
+
+    firebase_storage.FirebaseStorage storage =
+        firebase_storage.FirebaseStorage.instance;
+
     _controller.releaseFileUrl(url);
   }
 

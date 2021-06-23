@@ -31,6 +31,7 @@ dependencies:
   cloud_firestore: ^2.2.2
   #firebase: ^9.0.1
   firebase_auth: ^1.4.1
+  firebase_storage: ^8.1.3  # https://pub.dev/packages/firebase_storage
   flutter_dropzone: ^2.0.1  # https://pub.dev/packages/flutter_dropzone
 
 dev_dependencies:
