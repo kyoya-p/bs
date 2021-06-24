@@ -43,18 +43,8 @@ Widget makeItem(Map<String, dynamic> e) {
     top: top,
     left: left,
     child: Draggable(
-      child: Container(
-        height: 20,
-        width: 20,
-        color: Colors.black,
-        child: img,
-      ),
-      feedback: Container(
-        height: 20,
-        width: 20,
-        color: Colors.black12,
-        child: img,
-      ),
+      child: img,
+      feedback: img,
     ),
   );
 }
